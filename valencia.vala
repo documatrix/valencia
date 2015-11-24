@@ -871,7 +871,7 @@ public class Instance : Peas.ExtensionBase, Gedit.WindowActivatable {
         }
     }
 
-    static void document_loaded_callback(Gedit.Document document, void *arg1, Instance instance) {
+    static void document_loaded_callback(Gedit.Document document, Instance instance) {
         instance.on_document_loaded(document);
     }
 
