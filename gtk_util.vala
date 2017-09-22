@@ -119,10 +119,17 @@ class Tooltip : Object {
         window.set_default_size(1, 1);
         window.set_transient_for(parent);
         window.set_destroy_with_parent(true);
-        
+
         Gdk.RGBA background = Gdk.RGBA();
-        if (!background.parse("#FFFF99"))
+
+        string color = "#FFFF99";
+        if ( parent.get_settings( ).gtk_application_prefer_dark_theme ) {
+            color = "#000000";
+        }
+
+        if (!background.parse(color)) {
             error("can't parse color");
+        }
         window.override_background_color(Gtk.StateFlags.NORMAL, background);
     }
 

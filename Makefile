@@ -56,7 +56,7 @@ valencia.plugin: valencia.plugin.m4 Makefile
 
 libvalencia.so: $(SOURCES) Makefile
 	@ pkg-config --print-errors --exists '$(PACKAGE_VERSIONS)'
-	$(VALAC) $(VFLAGS) -X --shared -X -fPIC $(PACKAGES) $(SOURCES) -o $@
+	$(VALAC) $(VFLAGS) --vapidir=/usr/local/share/vala/vapi/ -X --shared -X -fPIC $(PACKAGES) $(SOURCES) -o $@
 
 install: libvalencia.so valencia.plugin
 	@ [ `whoami` != "root" ] || ( echo 'Run make install as yourself, not as root.' ; exit 1 )
@@ -70,7 +70,7 @@ uninstall:
 	rm -f $(ICON_DIR)/valencia.png
 
 parser:  expression.vala parser.vala program.vala scanner.vala util.vala
-	$(VALAC) $(VFLAGS) --pkg vala-1.0 --pkg gtk+-2.0 $^ -o $@
+	$(VALAC) $(VFLAGS) --vapidir=/usr/local/share/vala/vapi/ --pkg vala-1.0 --pkg gtk+-2.0 $^ -o $@
 
 dist: $(DIST_FILES)
 	mkdir -p $(PLUGIN)-$(VERSION)
