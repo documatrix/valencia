@@ -458,7 +458,7 @@ class ListViewString : Object {
     void remove(Gtk.TreePath path) {
         Gtk.TreeIter iter;
         list.get_iter(out iter, path);
-        list.remove(iter);
+        list.remove(ref iter);
     }
 
     public void collate(string[] new_list) {

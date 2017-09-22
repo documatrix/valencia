@@ -130,51 +130,51 @@ public class AppInstance : Peas.ExtensionBase, Gedit.AppActivatable {
         
         go_to_definition_menu_item = new GLib.MenuItem("Go to _Definition", "win.go_to_definition");
         search_menu.append_item(go_to_definition_menu_item);
-        app.add_accelerator("F12", "win.go_to_definition", null);
+        app.set_accels_for_action( "win.go_to_definition", { "F12" } );
         
         find_symbol_menu_item = new GLib.MenuItem("Find _Symbol...", "win.find_symbol");
         search_menu.append_item(find_symbol_menu_item);
-        app.add_accelerator("<ctrl><alt>s", "win.find_symbol", null);
+        app.set_accels_for_action( "win.find_symbol", { "<Control><Alt>s" } );
         
         go_to_outer_scope_menu_item = new GLib.MenuItem("Go to _Outer Scope", "win.go_to_outer_scope");
         search_menu.append_item(go_to_outer_scope_menu_item);
-        app.add_accelerator("<ctrl>F12", "win.go_to_outer_scope", null);
+        app.set_accels_for_action( "win.go_to_outer_scope", { "<Control>F12" } );
         
         go_back_menu_item = new GLib.MenuItem("Go _Back", "win.go_back");
         search_menu.append_item(go_back_menu_item);
-        app.add_accelerator("<alt>Left", "win.go_back", null);
+        app.set_accels_for_action( "win.go_back", { "<Alt>Left" } );
         
         go_forward_menu_item = new GLib.MenuItem("Go F_orward", "win.go_forward");
         search_menu.append_item(go_forward_menu_item);
-        app.add_accelerator("<alt>Right", "win.go_forward", null);
+        app.set_accels_for_action( "win.go_forward", { "<Alt>Right" } );
 
         next_error_menu_item = new GLib.MenuItem("_Next Error", "win.next_error");
         search_menu.append_item(next_error_menu_item);
-        app.add_accelerator("<ctrl><alt>e", "win.next_error", null);
+        app.set_accels_for_action( "win.next_error", { "<Control><Alt>e" } );
         
         prev_error_menu_item = new GLib.MenuItem("_Previous Error", "win.prev_error");
         search_menu.append_item(prev_error_menu_item);
-        app.add_accelerator("<ctrl><alt>p", "win.prev_error", null);
+        app.set_accels_for_action( "win.prev_error", { "<Control><Alt>p" } );
         
         display_tooltip_menu_item = new GLib.MenuItem("_AutoComplete", "win.autocomplete");
         search_menu.append_item(display_tooltip_menu_item);
-        app.add_accelerator("<ctrl>space", "win.autocomplete", null);
+        app.set_accels_for_action( "win.autocomplete", { "<Control>space" } );
         
         build_menu_item = new GLib.MenuItem("_Build", "win.build");
         project_menu.append_item(build_menu_item);
-        app.add_accelerator("<ctrl><alt>b", "win.build", null);
+        app.set_accels_for_action( "win.build", { "<Control><Alt>b" } );
         
         clean_menu_item = new GLib.MenuItem("_Clean", "win.clear");
         project_menu.append_item(clean_menu_item);
-        app.add_accelerator("<ctrl><alt>c", "win.clear", null);
+        app.set_accels_for_action( "win.clear", { "<Control><Alt>c" } );
         
         run_menu_item = new GLib.MenuItem("_Run", "win.run");
         project_menu.append_item(run_menu_item);
-        app.add_accelerator("<ctrl><alt>r", "win.run", null);
+        app.set_accels_for_action( "win.run", { "<Control><Alt>r" } );
 
         settings_menu_item = new GLib.MenuItem("_Settings", "win.settings");
         project_menu.append_item(settings_menu_item);
-        app.add_accelerator("<ctrl><alt>t", "win.settings", null);
+        app.set_accels_for_action( "win.settings", { "<Control><Alt>t" } );
         
         MenuItem wipe_valencia_item = new GLib.MenuItem("Wipe _Valencia Symbols", "win.wipe_symbols");
         project_menu.append_item(wipe_valencia_item);
@@ -224,7 +224,7 @@ public class Instance : Peas.ExtensionBase, Gedit.WindowActivatable {
     Vte.Terminal run_terminal;
     
     // Error pane 
-    Regex error_regex;
+    GLib.Regex error_regex;
     
     string target_filename;
     Destination destination;
@@ -897,8 +897,8 @@ public class Instance : Peas.ExtensionBase, Gedit.WindowActivatable {
     //   foo.c:268: ...               (GCC errors, containing a line number only)
     void init_error_regex() {
         try {
-            error_regex = new Regex("""^(.*):(\d+)(?:\.(\d+)-(\d+)\.(\d+))?:""");
-        } catch (RegexError e) {
+            error_regex = new GLib.Regex("""^(.*):(\d+)(?:\.(\d+)-(\d+)\.(\d+))?:""");
+        } catch (GLib.RegexError e) {
             stderr.puts("A RegexError occured when creating a new regular expression.\n");
             return;        // TODO: report error
         }
